@@ -18,5 +18,21 @@ const getProductsByUser = async (userId) => {
   return result.rows;
 };
 
+const updateProduct = async (id, updated, status) => {
+  const result = await pool.query(
+    `UPDATE products SET name=$1, description=$2, price=$3, image_url=$4, status=$5 WHERE id=$6 RETURNING *`,
+    [updated.name, updated.description, updated.price, updated.image_url, status, id]
+  );
+  return result.rows[0];
+};
 
-module.exports={createProduct, getProductsByUser};
+const deleteProduct = async (id) => {
+  await pool.query('DELETE FROM products WHERE id = $1', [id]);
+};
+
+const getProductById = async (id) => {
+  const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+  return result.rows[0];
+};
+
+module.exports={createProduct, getProductsByUser, updateProduct, deleteProduct,  getProductById};

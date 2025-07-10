@@ -35,3 +35,33 @@ exports.syncProductToWoo = async (product) => {
     throw new Error('WooCommerce sync failed');
   }
 };
+
+
+exports.updateWooProduct = async (wooId, updatedData) => {
+  const payload = {
+    name: updatedData.name,
+    description: updatedData.description,
+    regular_price: updatedData.price.toString(),
+    images: [{ src: updatedData.image_url }],
+  };
+
+  try {
+      const res = await axios.put(`${WC_URL}/${wooId}`, payload, {
+      ...AUTH,
+      httpsAgent: agent,
+    });
+  return res.data;
+  } catch (error) {
+    console.error('❌ WooCommerce Error:', error.response?.data || error.message);
+    throw new Error('WooCommerce sync failed');
+  }
+
+};
+
+
+exports.deleteWooProduct = async (wooId) => {
+  await axios.delete(`${WC_URL}/${wooId}?force=true`, {
+      ...AUTH,
+      httpsAgent: agent,
+    });
+};

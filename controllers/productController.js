@@ -21,3 +21,28 @@ exports.getMyProducts = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.update = async (req, res) => {
+  try {
+    const updated = await productService.updateProductForUser(
+      req.user.userId,
+      req.params.id,
+      req.body
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    await productService.deleteProductForUser(req.user.userId, req.params.id);
+    res.json({ message: 'Product deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
