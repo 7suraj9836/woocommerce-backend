@@ -13,6 +13,10 @@ app.use(express.json());
 
 app.use('/api/auth',authRoutes);
 app.use('/api/products',productRoutes);
+app.get("/", (req, res) => {
+  res.send("✅ WooCommerce Backend is running");
+});
+
 
 // ✅ Test DB connection
 pool.query('SELECT NOW()')
