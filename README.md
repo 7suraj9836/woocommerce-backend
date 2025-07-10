@@ -39,3 +39,8 @@ PG_PORT=5432
 WC_URL=https://your-site.local
 WC_CONSUMER_KEY=ck_xxxxxxxx
 WC_CONSUMER_SECRET=cs_xxxxxxxx
+
+### 📬 Postman Collection (Optional)
+
+You can find the API test collection here:  
+[📂 Postman Collection](./postman/WooCommerce.postman_collection.json)
